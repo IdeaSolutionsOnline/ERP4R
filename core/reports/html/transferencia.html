@@ -1,0 +1,84 @@
+% setdefault('entreprise', '')
+% setdefault('cliente', '')
+% setdefault('data', '')
+% setdefault('numero', '')
+% setdefault('linhas', [])
+% setdefault('total_desconto', '')
+% setdefault('total_iva', '')
+% setdefault('total', '')
+% setdefault('notas', '')
+% setdefault('logotipo', '')
+<!DOCTYPE html>
+<html lang="pt-PT">
+	<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>Transferencia ERP+</title>
+	<style media="print">
+		.botao {
+			display: none;
+			}
+		@page {
+			size: auto;
+			margin: 0mm;
+			}
+		body {
+			margin: 0px;
+			}
+</style>
+	</head>
+	<body>
+	<FONT FACE="helvetica, georgia, courier, arial"> 
+	<table style="width:200mm; margin:0; padding:0">
+		<tr>
+		<td>
+			<img alt="Logo" src="static/{{logotipo}}"> <br>
+			<div style="font-size:15px; font-weight:bold; width:76mm; text-align:left;">{{enterprise}}</div>
+			<div style="font-size:12px; font-weight:bold; width:76mm; text-align:left;">Morada : {{street}}&nbsp;{{city}}</div>
+			<div style="font-size:12px; font-weight:bold; width:76mm; text-align:left;">Tel. : {{phone}}</div>
+			<div style="font-size:12px; font-weight:bold; width:76mm; text-align:left;">Nif : {{nif}}</div>
+		</td>
+		<td>
+			<div style="font-size:14px; width:76mm; text-align:left;">Guia de transferencia N° : {{numero}}</div>
+			<div style="font-size:14px; width:76mm; text-align:left;">Data : {{data}}</div>
+		</td>
+		</tr>
+	</table>
+	<HR style="width:200mm;" align="left">
+	<table style="width:200mm; margin:0; padding:0">
+		<tr>
+			<td style="text-align:left; vertical-align:top; font-weight:bold; width:31mm; font-size:14px; border-BOTTOM: #000000 1px solid;">Produto</td>
+			<td style="text-align:left; vertical-align:top; font-weight:bold; width:15mm; font-size:14px; border-BOTTOM: #000000 1px solid;">Unidade</td>
+			<td style="text-align:right; vertical-align:top; font-weight:bold; width:15mm; font-size:14px; border-BOTTOM: #000000 1px solid;">Qt.</td>
+			<td style="text-align:right; vertical-align:top; font-weight:bold; width:15mm; font-size:14px; border-BOTTOM: #000000 1px solid;">V.Unitário</td>
+			<td style="text-align:right; vertical-align:top; font-weight:bold; width:15mm; font-size:14px; border-BOTTOM: #000000 1px solid;">V.Total</td>
+		</tr>
+	% for l in linha_transferencia:
+	<tr>
+		<td style="text-align:left; vertical-align:top; font-size:12px;">
+			{{l['produto'][1]}}
+		</td>
+		<td style="text-align:left; vertical-align:top; font-size:12px;">
+			{{l['unidade'][1]}}
+		</td>
+		<td style="text-align:right; vertical-align:top; font-size:12px;">
+			{{l['quantidade']}}
+		</td>
+		<td style="text-align:right; vertical-align:top; font-size:12px;">
+			{{l['valor_unitario']}}
+		</td>
+		<td style="text-align:right; vertical-align:top; font-size:12px;">
+			{{l['valor_total']}}
+		</td>
+	</tr>
+	% end
+	</table>
+	<div style="font-size:14px; width:200mm; text-align:right; font-weight:bold;">Total : {{ total }}</div>
+	<HR style="width:200mm;" align="left">
+	<div style="font-size:14px; width:200mm; text-align:left;">Outras Informações:</div>
+	<div style="font-size:12px; width:200mm; text-align:center;">{{ notas }}</div>
+	<div style="font-size:8px; width:200mm; text-align:center;">Processado por computador no ERP+  v1.0</div>
+	</font>
+	<HR style="width:200mm;" align="left">
+	<input class="botao" name="print" value="Imprimir" onclick="javascript:window.print();window.close();" type="button">
+	</body>
+</html>

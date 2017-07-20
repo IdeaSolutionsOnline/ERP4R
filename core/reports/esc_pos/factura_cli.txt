@@ -1,0 +1,10 @@
+{OpenDraw}
+{header}
+{today:25} Factura N.:{number:>8}
+{Now}\n
+{Line}
+for item in record_lines:
+	{description:<25} {quantity:>5} {value:>8}\n
+{Line}
+Total: {total:>33}\n
+{Line} + {LineAdvance} + {LineAdvance} + {CutPaper}

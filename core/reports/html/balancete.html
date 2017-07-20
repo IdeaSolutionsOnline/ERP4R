@@ -1,0 +1,37 @@
+% setdefault('entreprise', '')
+% setdefault('cliente', '')
+% setdefault('data', '')
+% setdefault('numero', '')
+% setdefault('lines', [])
+% setdefault('logotipo', '')
+% print('no balancete.html')
+<!DOCTYPE html>
+<html lang="pt-PT">
+	<head>
+	</head>
+	<body>
+		<h3>{{ enterprise }}</h3>
+		Terminal: {{ terminal }} - Utilizador: {{ user_name }}<br>
+		Data Inicial: {{ data_inicial or 'Inicio'}} - Data Final: {{ data_final or 'Fim'}}<br>
+		Periodos: {{ periodos or 'Todos'}} - Nivel: {{ nivel or 'Lançamento'}} - Anos Fiscais:{{ anos_fiscais or 'Todos'}}
+		<h4>Balancete</h4>
+		<table style="width:200mm; margin:0; padding:0">
+		<tr>
+			<td>Código</td>
+			<td>Descrição</td>
+			<td align="right">Débito</td>
+			<td align="right">Crédito</td>
+			<td align="right">Saldo</td>
+		</tr>
+		% for l in lines:
+		<tr>
+			<td>{{l['codigo']}}</td>
+			<td>{{l['conta']}}</td>
+			<td align="right">{{l['debito']}}</td>
+			<td align="right">{{l['credito']}}</td>
+			<td align="right">{{l['saldo']}}</td>
+		</tr>
+		% end
+		</table>
+	</body>
+</html>

@@ -1,0 +1,37 @@
+<legend>Ecrã de Pagamento</legend>
+<div class="small-12 medium-12 large-12 columns">
+    <div class="small-6 medium-6 large-6 columns">
+    <table>
+        <thead>
+            <tr>
+                <th>Método de Pagamento</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            % for metodo in metodos:
+                <tr>
+                    <td>{{metodo[0]}}</td>
+                    <td>
+                        <input type="number" id="metodos" name="{{metodo[0]}}" value="{{metodo[1]}}" style="width:60mm; text-align: right;" onChange="calculos()"></input>
+                    </td>
+                </tr>
+            % end
+        </tbody>
+    </table>
+    </div>
+
+    <div class="small-6 medium-6 large-6 columns">
+        <label>Total a Pagar: </label><input readonly=True type="number" id="total_a_pagar" name="total_a_pagar" value="{{total}}" style="width:60mm; text-align: right;"> </input>
+        <label>Total Entregue: </label>
+        <input readonly=True type="number" id="total_entregue" name="total_entregue" value=0 style="width:60mm; text-align: right;"> </input>
+        <label>Troco: </label>
+        <input readonly=True type="number" id="troco" name="troco" value=0 style="width:60mm; text-align: right;"> </input>
+        <div class="button" onclick="$(this).html('Aguarde!'); pagamento('{{key}}','{{name}}'); disable($(this));">
+            Pagar
+        </div>
+        <div class="button" onclick="formEdit('{{key}}', '{{name}}', 'form_edit_action', 'content');">
+            Cancelar
+        </div>
+    </div>
+</div>

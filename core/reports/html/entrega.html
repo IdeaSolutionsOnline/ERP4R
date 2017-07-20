@@ -1,0 +1,78 @@
+% setdefault('entreprise', '')
+% setdefault('cliente', '')
+% setdefault('data', '')
+% setdefault('numero', '')
+% setdefault('linhas', [])
+% setdefault('total_desconto', '')
+% setdefault('total_iva', '')
+% setdefault('total', '')
+% setdefault('notas', '')
+% setdefault('logotipo', '')
+<!DOCTYPE html>
+<html lang="pt-PT">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title></title>
+    <style media="print">
+ 		.botao {
+			display: none;
+			}
+		@page {
+            size: auto;
+            margin: 0mm;
+        }
+		body {
+            margin: 0px;
+       	}
+</style>
+  </head>
+  <body>
+    <div>
+    <FONT FACE="helvetica, georgia, courier, arial"> 
+    <img alt="Logo" src="../../static/{{logotipo}}" height="65"
+        width="149"> <br>
+      <div style="font-size:16px; font-weight:bold; width:76mm; text-align:center;">{{enterprise}}</div>
+      <div style="font-size:14px; width:76mm; text-align:center;">Cliente : {{cliente[1]}}</div>
+      <div style="font-size:14px; width:76mm; text-align:center;">Vendedor : {{vendedor[0]['nome']}}</div>
+      <div style="font-size:14px; width:76mm; text-align:center;">Data : {{data}}</div>
+      <div style="font-size:14px; width:76mm; text-align:center;">N° : {{numero}}</div>
+      
+      <table style="width:76mm; margin:0; padding:0">
+        <tbody>
+          <tr>
+            <td style="text-align:left; vertical-align:top; font-weight:bold; width:31mm; font-size:14px; border-BOTTOM: #000000 1px solid;">Descrição</td>
+            <td style="text-align:left; vertical-align:top; font-weight:bold; width:15mm; font-size:14px; border-BOTTOM: #000000 1px solid;">Qt.</td>
+            <td style="text-align:left; vertical-align:top; font-weight:bold; width:15mm; font-size:14px; border-BOTTOM: #000000 1px solid;">Desc.</td>
+            <td style="text-align:left; vertical-align:top; font-weight:bold; width:15mm; font-size:14px; border-BOTTOM: #000000 1px solid;">Preço</td>
+          </tr>
+          % for l in linha_entrega:
+          <tr>
+            <td style="text-align:left; vertical-align:top; font-size:12px;">
+            {{l['produto']}}
+            </td>
+            <td style="text-align:left; vertical-align:top; font-size:12px;">
+            {{l['quantidade']}}
+            </td>
+            <td style="text-align:left; vertical-align:top; font-size:12px;">
+            {{l['desconto']}}%
+            </td>
+            <td style="text-align:left; vertical-align:top; font-size:12px;">
+            {{l['valor_total']}}
+            </td>
+          </tr>
+           % end
+        </tbody>
+      </table>
+      <div style="font-size:14px; width:76mm; text-align:right; font-weight:bold;">Desconto Inc. : {{ total_desconto }}</div>
+      <div style="font-size:14px; width:76mm; text-align:right; font-weight:bold;">Total : {{ total }}</div>
+      <div style="font-size:14px; width:76mm; text-align:left;">Outras Informações:</div>
+      <div style="font-size:12px; width:76mm; text-align:center;">{{ notas }}</div>
+      <br>
+      <div style="font-size:10px; width:76mm; text-align:center;">Não serve para fins contabilisticos</div>
+      </font>
+      <HR size="1" width="290" align="left" color="black">
+    </div>
+    <input class="botao" name="print" value="Imprimir" onclick="javascript:window.print();window.close();"
+      type="button">
+  </body>
+</html>

@@ -1,0 +1,94 @@
+% setdefault('enterprise', '')
+% setdefault('cliente', '')
+% setdefault('data', '')
+% setdefault('numero', '')
+% setdefault('linhas', [])
+% setdefault('total_desconto', '')
+% setdefault('total_iva', '')
+% setdefault('total', '')
+% setdefault('notas', '')
+% setdefault('logotipo', '')
+% setdefault('hora_inicial', '')
+% setdefault('hora_final', '')
+% setdefault('data_inicial', '')
+% setdefault('data_final', '')
+% #print ('im in caixa.html')
+<!DOCTYPE html>
+<html lang="pt-PT">
+	<head>
+	</head>
+	<body>
+		<h3>{{ enterprise }}</h3>
+		<table style="width:200mm; margin:0; padding:0">
+		<tr>
+		% #print (enterprise)
+		<td>Terminal:</td><td align="right">{{ terminal }}</td><td> | Utilizador:</td><td align="right">{{ vendedor[0]['nome'] }}</td>
+		% #print (vendedor[0]['nome'])
+		</tr>
+		<tr>
+		% #print (data_inicial)
+		% #print (hora_inicial)
+		<td>Data Inicial:</td><td align="right">{{ data_inicial }}</td><td> | Hora Inicial:</td><td align="right">{{ hora_inicial }}</td>
+
+		</tr>
+		<tr>
+		<td>Data Final:</td><td align="right">{{ data_final }}</td><td> | Hora Final:</td><td align="right">{{ hora_final }}</td>
+		</tr>
+		<tr>
+		<td>Valor inicial:</td><td align="right">{{ valor_inicial }}</td><td> | Valor Final:</td><td align="right">{{ valor_final }}</td>
+		</tr>
+		<tr>
+		<td>Total Facturado:</td><td align="right">{{ valor_facturado }}</td><td> | Diferença:</td><td align="right">{{ diferenca }}</td>
+		</tr>
+		</table><br>
+		% #print('vou entrar em metodos de pagamento')
+		% for mp in metodos_pagamento:
+		{{mp[1]}} = {{metodos_pagamento[mp]}} -:- 
+		% end
+		<br><br>
+		Justificativo para a diferenca se houver:<br>
+		_____________________________________________________________________________________<br>
+		_____________________________________________________________________________________<br>
+		_____________________________________________________________________________________<br>
+		_____________________________________________________________________________________<br>
+
+		% #print ('documentos')
+		<h4>Documentos</h4>
+		<table style="width:200mm; margin:0; padding:0">
+		<tr>
+			<td>Tipo de Documento</td>
+			<td align="center">Numero</td>
+			<td>Metodo</td>
+			<td align="right">Entrada</td>
+			<td align="right">Saida</td>
+		</tr>
+		% #print ('linhas de caixa')
+		% for l in linha_caixa:
+		<tr>
+			<td>{{l['descricao']}}</td>
+			<td align="center">{{l['num_doc']}}</td>
+			<td>{{l['metodo'][1]}}</td>
+			<td align="right">{{l['entrada']}}</td>
+			<td align="right">{{l['saida']}}</td>
+		</tr>
+		% end
+		</table style="width:200mm; margin:0; padding:0">
+		% #print ('produtos')
+		<h4>Produtos</h4>
+		<table>
+		<tr>
+			<td>Produto</td>
+			<td align="right">Quantidade</td>
+			<td align="right">Valor</td>
+		</tr>
+		% for p in produtos:
+		<tr>
+			<td>{{p['produto']}}</td>
+			<td align="right">{{p['quantidade']}}</td>
+			<td align="right">{{p['valor']}}</td>
+		</tr>
+		% end
+		</table>
+	</body>
+% #print ('fim')
+</html>

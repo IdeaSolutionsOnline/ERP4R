@@ -1,0 +1,40 @@
+% setdefault('entreprise', '')
+% setdefault('cliente', '')
+% setdefault('data', '')
+% setdefault('numero', '')
+% setdefault('linhas', [])
+% setdefault('total_desconto', '')
+% setdefault('total_iva', '')
+% setdefault('total', '')
+% setdefault('notas', '')
+% setdefault('logotipo', '')
+<!DOCTYPE html>
+<html lang="pt-PT">
+    <head>
+    </head>
+    <body>
+        <h3>{{ enterprise }} - {{title}}</h3>
+        <table style="width:200mm; margin:0; padding:0">
+        <thead>
+        <tr>
+            % for field in ordem_dos_campos.split(','):
+                % if field in result[0].keys():
+                    <th style="text-align:left;">{{field}}</th>
+                % end
+            % end
+        </tr>
+        </thead>
+        </tbody>
+        % for line in result:
+            <tr>
+                % for field in ordem_dos_campos.split(','):
+                    % if field in line.keys():
+                        <td>{{line[field]}}</td>
+                    % end
+                % end
+            </tr>
+        % end
+        </tbody>
+        </table>
+    </body>
+</html>

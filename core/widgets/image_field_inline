@@ -1,0 +1,33 @@
+% setdefault('hidden', False)
+% setdefault('nolabel', False)
+% setdefault('source', 'edit')
+% setdefault('field_name', 'None')
+% setdefault('name', '')
+% setdefault('value', '')
+% setdefault('obj', '')
+% setdefault('obj_key', '')
+% setdefault('args', '')
+% setdefault('cols', '')
+
+%input_type = 'type="file"'
+%if hidden:
+    %input_type = 'type="Hidden"'
+%end
+
+%if source == 'edit' and not hidden:
+    <div class="small-{{cols}} medium-{{cols}} large-{{cols}} columns">
+    %if not nolabel:
+        <label>{{!field_name}}</label>
+    %end
+%else:
+    <div>
+%end
+    %if value:
+        <img src="{{!value}}" id="img_{{!name}}"></img>
+    %end
+        <a href="#" class="button tiny radius" onclick="openBrowser('{{!name}}', '{{!obj}}', '{{!obj_key}}');" style="float:left;"><i class="fi-download"></i> Navegar</a>
+
+
+    <!--<input id="file_{{!name}}" {{!input_type}} name="file" size={{size}} {{!args}} onchange="$({{!name}}).val($(file_{{!name}}).val())"> -->
+    <input id="{{!name}}" type="hidden" name="{{!name}}" value="{{!value}}" size={{size}} {{!args}}>
+</div>

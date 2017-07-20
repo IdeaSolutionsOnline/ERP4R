@@ -1,0 +1,294 @@
+% setdefault('title', '')
+% setdefault('check_box', '')
+% setdefault('columns', [])
+% setdefault('rows', [])
+% setdefault('add_ok', False)
+% setdefault('delete_ok', False)
+% setdefault('edit_ok', False)
+% setdefault('name', '')
+% setdefault('show_search', False)
+% setdefault('show_footer', True)
+% setdefault('footer_vals', {})
+% setdefault('rows_count', 0)
+% setdefault('popup_field_name', None)
+% setdefault('popup_option_fields', [])
+% setdefault('list_field', False)
+% #print ('list_field', list_field)
+% #print ('name', name, 'title', title, 'show_search', show_search)
+% content_id = 'content'
+% popup = False
+% if window_status == 'popup':
+    % popup = True
+    % content_id = 'popupContent'
+% end
+% #print ('Inicio de List_field:', 'name', name, 'popup', popup, 'list_edit_mode', list_edit_mode, 'content_id', content_id)
+% if list_field:
+    % if not recalled:
+        <div class="small-{{cols}} medium-{{cols}} large-{{cols}} columns list_widget" id="{{name}}">
+    % end
+    <legend>{{!title}}</legend>
+% else:
+    <legend>{{!title}}</legend>
+    <div class="list_widget" id="{{name}}">
+% end
+
+%if show_search or popup:
+<div class="row fullWidth">
+    <div class="large-1 columns">
+        <select name="limit_chooser" id="limit_chooser" onchange="change_limit('{{name}}', '{{content_id}}', '{{popup}}');">
+            %for opt in ['10', '20', '50', '100', '500', '1000', '5000', '10000']:#, 'All' o all ainda nao esta mas vai estar
+                %#print (opt)
+                %if str(opt) == str(limit):
+                    %#print ('selected')
+                    <option value="{{opt}}" selected>{{opt}}</option>
+                %else:
+                    %#print ('not selected')
+                    <option value="{{opt}}">{{opt}}</option>
+                %end
+            %end
+        </select>
+    </div>
+    <div class="row collapse">
+        <div class="large-10 columns">
+            <input type="text" placeholder="Pesquisa" name="search_{{!name}}" id="search_{{!name}}" onkeypress="handleEnter( event, 'search', '{{!name}}', '{{!popup}}');">
+        </div>
+        <div class="large-1 columns">
+            <a href="#" onclick="filter('{{!name}}', '{{content_id}}', '{{!popup}}');" class="button postfix">
+                <i class="fi-magnifying-glass"></i>
+                Pesquisa
+            </a>
+            <!--aqui o filtro deveria alimentar o ContentBody pois assim s´o modificava o conteudo da lista e n~ao e form todo-->
+        </div>
+    </div>
+</div>
+%end
+<div class="row fullWidth">
+<table id="list_table" class="large-12 columns">
+    <thead>
+    <tr>
+        <th>{{!check_box}}</th>
+        <th width="15"></th>
+        %for column in columns:
+            <th style="text-align:{{column[2]}};">{{column[1]}}</th>
+        %end
+        <th width="15"></th>
+        <th width="15">
+            %if add_ok:
+                %if list_edit_mode == 'inline':
+                    %#print ('-------------------------------------------------------------------------------------------------inline')
+                    %action_type = 'form_list_action'
+                    %if list_field:     
+                        %action_type = 'list_field_action'
+                    %end
+                    <a class="tiny button radius success" href="#" onclick="addRecord('{{name}}');">
+                        <i class="fi-plus"></i>
+                    </a>
+                    <script type="text/javascript">
+                        function addRecord(name){
+                            $('#ContentBody{{name}}').prepend('<tr id="None"></tr>');
+                            var strURL = '/' + name + '/{{action_type}}/None';
+                            $.ajax({type: 'POST', url: strURL, data: $('#erpForm').serialize()
+                                }).success(function(r) {
+                                        $('#None').html(r);
+                                    }).error(function(r) {
+                                        $('#message_container').removeClass('alert-success').addClass('alert-error');
+                                        $('#message_container').show();
+                                        $('#message').html(r.responseText);
+                                    });
+                            };
+                </script>
+                %elif list_edit_mode == 'edit':
+                    %#print ('-------------------------------------------------------------------------------------------------edit')
+                    <a class="button tiny radius success" href="#" onclick="formEdit(key='None', name='{{name}}', action='form_edit_action', content_id='{{content_id}}');">
+                        <i class="fi-plus"></i>
+                    </a>
+                %elif list_edit_mode == 'popup':
+                    %#print ('-------------------------------------------------------------------------------------------------popup')
+                    <a class="button tiny radius success" href="#" onclick="formEdit(key='None', name='{{name}}', action='form_edit_popup', content_id='popupContent');">
+                        <i class="fi-plus"></i>
+                    </a>
+                %elif list_edit_mode == 'newwin':
+                    %#print ('-------------------------------------------------------------------------------------------------newwin')
+                    <a class="button tiny radius success" href="#" onclick="editNewWin(key='None', name='{{name}}', content_id='content');">
+                        <i class="fi-plus"></i>
+                    </a>
+                %else:
+                    %#print ('-------------------------------------------------------------------------------------------------none of the above')
+                    <a class="button tiny radius success" href="#" onclick="formEdit(key='None', name='{{name}}', action='form_edit_action', content_id='{{content_id}}');">
+                        <i class="fi-plus"></i>
+                    </a>
+            %end
+        %end
+        </th>
+    </tr>
+    </thead>
+
+%#print ('tbody----------------------------------------------------------')
+
+    <tbody id="ContentBody{{name}}">
+    %for row in rows:
+        %#print ('in row', row)
+        %key = row[1][2]
+        <tr style="color:{{!row[1][0]}}; font-weight: {{!row[1][1]}};" id="{{!row[1][2]}}">
+        <td>
+            %if check_box != '':
+                <input type="checkbox" class="check" name="lines" value="{{key}}" id="lines"></input>
+            %end 
+            <input name="key" value='{{key}}' type="hidden"></input>
+            <!--aqui depois temos que ficar s´o com um o lines ou o key, agora n~ao tenho tempo-->
+        </td>
+        <td>
+        %if popup and not list_field:
+            %#print ('its a popup')
+            %value = ''
+            %for opt in popup_option_fields:
+                %value += row[0][opt][1] + ' '
+            %end
+            %#print ('value ', value)
+            <a class="tiny button radius warning" href="#" onclick="select_key('{{key}}', '{{value}}', '{{popup_field_name}}')">
+                <i class="fi-check"></i>
+            </a>
+        %else:
+            %if delete_ok:
+                <a class="tiny button radius alert" href="#" onclick="del('{{key}}', '{{name}}')">
+                    <i class="fi-trash"></i>
+                </a>
+            %end
+        %end
+        </td>
+
+        %fields = row[0]
+        %#print (fields)
+        %for column in columns:
+            %#print (column)
+            <td>
+                <div id="{{!fields[column[0]][0]}}_lbl" style="text-align:{{!fields[column[0]][3]}};">{{!fields[column[0]][1]}}{{!fields[column[0]][2]}}</div>
+            </td>
+        %end
+        %#print ('almost done!')
+        <td>
+        </td>
+        <td>
+            %if edit_ok:
+                %if list_edit_mode == 'inline':
+                    %if list_field:
+                        %#print('im a list_field')
+                        <a class="tiny button radius warning" href="#" onclick="listEdit('{{key}}', '{{name}}', 'list_field_action');">
+                            <i class="fi-pencil"></i>
+                        </a>
+                    %else:
+                        %#print ('im a form_list')
+                        <a class="tiny button radius warning" href="#" onclick="listEdit('{{key}}', '{{name}}', 'form_list_action');">
+                            <i class="fi-pencil"></i>
+                        </a>
+                    %end
+                %elif list_edit_mode == 'edit':
+                    <a class="tiny button radius warning" href="#" onclick="formEdit(key='{{key}}', name= '{{name}}',action= 'form_edit_action', content_id = '{{content_id}}');">
+                        <i class="fi-pencil"></i>
+                    </a>
+                %elif list_edit_mode == 'popup':
+                    <a class="tiny button radius warning" href="#" onclick="formEdit(key='{{key}}', name= '{{name}}',action= 'form_edit_popup', content_id = 'popupContent');">
+                        <i class="fi-pencil"></i>
+                    </a>
+                %elif list_edit_mode == 'newwin':
+                    <a class="button tiny radius warning" href="#" onclick="editNewWin(key='{{key}}', name='{{name}}', content_id='content');">
+                        <i class="fi-pencil"></i>
+                    </a>
+                %else:
+                    <a class="tiny button radius warning" href="#" onclick="formEdit(key='{{key}}', name= '{{name}}',action= 'form_edit_action', content_id= '{{content_id}}');">
+                        <i class="fi-pencil"></i>
+                    </a>
+                %end
+            %end
+        </td>
+        </tr>
+        %#print ('end of row')
+    %end
+    </tbody>
+
+%#print ('footer------------------------------------------------------')
+
+    <tfoot>
+    <!--footer implementation-->
+    <tr id="foot">
+        <td width="15"></td> 
+        <td width="15"></td>
+        %if footer_vals:
+            %for column in columns:
+                <th id="{{column[0]}}_sum" style="text-align:{{column[2]}};">{{footer_vals[column[0]]}}</th>
+            %end
+            <td>
+            %if not popup and show_footer:
+                <a class="tiny button radius" href="#" onclick="simpleReport('{{name}}');">
+                    <i class="fi-print"></i>
+                </a>
+            %end
+            </td>
+            <td id="export">
+            %if not popup and show_footer:
+                <a class="tiny button radius" href="#" onclick="exportCSV('{{name}}');">
+                    <i class="fi-save"></i>
+                </a>
+            %end
+        %end    
+        </td>
+    </tr>   
+    </tfoot>
+</table>
+</div><!--row-->
+%#print ('popup---------------------------------------------------------------')
+%pages_count = int(int(rows_count)/int(limit))
+%actual_page = int(page)
+%#print ('1------------------------------------------------------------', rows_count, limit, 'bla')
+<div class="row fullWidth">
+<div class="records_count">
+    %page_records = limit
+    %if int(rows_count) < int(limit):
+        %page_records = rows_count
+    %end
+    {{page_records}} registos de {{rows_count}}
+</div>
+%#print ('pager---------------------------------------------------------------------')
+%#print ('actual_page', actual_page)
+%#print ('pages_count', pages_count)
+%#print ('limit', limit)
+
+<div class="pager">
+<ul class="pagination">
+    <li class="arrow"><a href="#" onclick="pages('0','{{!name}}','{{content_id}}')">&laquo;</a></li>
+%if actual_page > 0:
+    <li class="arrow unavailable"><a href="#" onclick="pages('{{actual_page-1}}','{{!name}}','{{content_id}}')">&lt;</a></li>
+%end
+%#print ('------------')
+%if pages_count >= int(actual_page) + int(limit):
+    %#print ('sim')
+    %final_page = int(actual_page) + int(limit)
+%else:
+    %#print ('nao')
+    %final_page = pages_count
+%end
+
+%#print ('final_page', final_page)
+
+%for p in range(actual_page, final_page + 1):
+    %if p == actual_page:
+        <li class="current"><a href="#" onclick="pages('{{p}}','{{!name}}','{{content_id}}')"><b>{{str(p)}}</b></a></li>
+    %else:
+        <li><a href="#" onclick="pages('{{p}}','{{!name}}','{{content_id}}')">{{str(p)}}</a></li>
+    %end
+%end
+
+%if actual_page < pages_count:
+        <li><a href="#" onclick="pages('{{actual_page+1}}','{{!name}}','{{content_id}}')">&gt;</a></li>
+        <li class="arrow"><a href="#" onclick="pages('{{pages_count}}','{{!name}}','{{content_id}}')">&raquo;</a></li>
+%else:
+        <li><a href="#">&gt;</a></li>
+        <li class="arrow"><a href="#">&raquo;</a></li>
+%end
+
+</ul>
+</div><!--pager-->
+</div>
+% if not recalled:
+    </div><!--list_widget-->
+% end

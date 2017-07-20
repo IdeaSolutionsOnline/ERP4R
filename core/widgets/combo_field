@@ -1,0 +1,41 @@
+% setdefault('hidden', '')
+% setdefault('nolabel', False)
+% setdefault('source', 'edit')
+% setdefault('field_name', 'None')
+% setdefault('name', '')
+% setdefault('value', '')
+% setdefault('args', '')
+% setdefault('edit_ok', True)
+% setdefault('options', [])
+% #print('o edit_ok no template é', edit_ok)
+% #print('os options no template são', options)
+
+%if hidden:
+	%hidden = 'display:none;'
+%end
+
+%if source == 'edit' and not hidden:
+	<div class="small-{{cols}} medium-{{cols}} large-{{cols}} columns">
+	%if not nolabel:
+		<label>{{!field_name}}</label>
+	%end
+%else:
+	<div>
+%end
+	<select name="{{!name}}" id="{{!name}}" {{!args}} style="font-family : monospace; font-size : 12pt; width: {{!size}}mm; {{!hidden}}">
+		<option></option>
+		%if isinstance(value, tuple):
+			%value = value[0]
+		%end
+		%for option in options:
+			%if str(value) in [str(option[0]), str(option[1])]:
+				<option value="{{!value}}" selected>{{!str(option[1])}}</option>
+			%else:
+				%if edit_ok:
+					<option value="{{!str(option[0])}}">{{!str(option[1])}}</option>
+				%end
+			%end
+		%end
+	</select>
+	</div>
+

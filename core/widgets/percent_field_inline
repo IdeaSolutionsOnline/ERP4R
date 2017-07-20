@@ -1,0 +1,31 @@
+% setdefault('hidden', False)
+% setdefault('nolabel', False)
+% setdefault('source', 'edit')
+% setdefault('field_name', 'None')
+% setdefault('name', '')
+% setdefault('value', '')
+% setdefault('args', '')
+
+%input_type = 'type="number"'
+%if hidden:
+	%input_type = 'type="Hidden"'
+%end
+
+%if source == 'edit' and not hidden:
+	<div class="small-{{cols}} medium-{{cols}} large-{{cols}} columns">
+             <div class="row collapse">
+	%if not nolabel:
+		<label>{{!field_name}}</label>
+	%end
+%else:
+	<div>
+             <div class="row collapse">
+%end
+                        <div class="small-9 medium-9 large-9 columns">
+		  <input id="{{!name}}" {{!input_type}} name="{{!name}}" value="{{!value}}" size={{size}} {{!args}} style="text-align: right;"></input>
+                        </div>
+                        <div class="small-3 medium-3 large-3 columns">
+                            <span class="postfix">%</span>
+                        </div>
+	</div>
+             </div>

@@ -1,0 +1,251 @@
+% setdefault('db_mode', None)
+% setdefault('add_ok', False)
+% setdefault('delete_ok', False)
+% setdefault('edit_ok', False)
+% setdefault('name', '')
+% setdefault('main_key', 0)
+% setdefault('first', 0)
+% setdefault('last', 0)
+% setdefault('forward', 0)
+% setdefault('back', 0)
+% setdefault('rows_count', 0)
+% setdefault('record_num', 0)
+% setdefault('wf_auth_buttons', [])
+% setdefault('fields', [])
+% setdefault('tabs', [])
+% setdefault('tab_labels', [])
+% setdefault('cols', 12)
+%#setdefault('window_status', 'edit')
+
+% setdefault('parent_key', None)
+% setdefault('parent_model', None)
+% setdefault('parent_name', None)
+
+
+%#print('o meu parent_key  é', parent_key)
+
+
+% content_id = 'content'
+% popup = False
+% if window_status == 'popup':
+    % popup = True
+    % content_id = 'popupContent'
+    % name = popup_name
+    % main_key = popup_main_key
+    % title = popup_title
+%end
+%print ('oi------------------------------------------------------------------oi')
+<legend>{{!title}}</legend>
+<!--main_key:{{main_key}},  name:{{name}}, parent_key:{{parent_key}}, parent_model:{{parent_model}}, parent_name:{{parent_name}}  nova_key_depois_javascrip:<input id="a" value="{{main_key}}"></input>-->
+<div>
+<input name="temp_window_id" type="hidden" id="temp_window_id" value="{{!window_id}}">
+<div class="row fullWidth">
+%if db_mode:
+<div style="display:inline-block; vertical-align: top;">
+    <ul class="button-group">
+    %if add_ok and not popup:
+        <li>
+            <a href="#" id="main_novo" class="button radius tiny" onclick="JavaScript:formEdit('None','{{name}}','form_edit_action', '{{content_id}}');">
+                <i class="fi-plus"></i> Novo
+            </a>
+        </li>
+    %end
+    %if edit_ok:
+        % if popup:
+            <li>
+                <a href="#" id="main_gravar" class="button radius tiny" onclick="JavaScript:save('{{main_key}}', '{{name}}', '{{content_id}}', 'Gravado Com Sucesso! :-)', 'True');">
+                    <i class="fi-save"></i> Gravar
+                </a>
+            </li>
+        %else:
+            <li>
+                <a href="#" id="main_gravar" class="button radius tiny" onclick="JavaScript:save('{{main_key}}', '{{name}}', '{{content_id}}', 'Gravado Com Sucesso! :-)', 'False');">
+                    <i class="fi-save"></i> Gravar
+                </a>
+            </li>
+        %end
+    %end
+    %if add_ok and not popup:
+        <li>
+            <a href="#" id="main_duplicar" class="button radius tiny" onclick="JavaScript:save('None', '{{name}}', '{{content_id}}', 'Duplicado Com Sucesso, este é um novo registo com os mesmos dados!', 'False');">
+                <i class="fi-check"></i> Duplicar
+            </a>
+        </li>
+    %end
+    %if delete_ok and not popup:
+        <li>
+            <a href="#" id="main_apagar" class="button radius tiny" onclick="JavaScript:del_form('{{main_key}}','{{name}}');">
+                <i class="fi-minus"></i> Apagar
+            </a>
+        </li>
+    %end
+    </ul><!--button-group-->
+</div>
+%end
+%#print ('1 do edit no template')
+<div style="display:inline-block; vertical-align: top;">
+<a href="#" id="main_refrescar" class="button radius tiny success" onclick="JavaScript:formEdit('{{main_key}}','{{name}}','form_edit_action', '{{content_id}}');">
+    <i class="fi-refresh"></i>
+</a>
+
+% if not popup and parent_key:
+<a href="#" id="return_to_parent" class="button radius tiny alert" onclick="JavaScript:formEdit('{{parent_key}}','{{parent_name}}','form_edit_action', '{{content_id}}');">
+    <i class="fi-arrow-left"></i>
+</a>
+%end
+
+% if not popup and not parent_key:
+    <div onclick="JavaScript:filter('{{name}}','content','False');" style=" display:inline; color:red; font-weight:bold;">
+        Lista
+    </div>
+%end
+</div>
+% if not popup:
+<div style="float:right; display:inline-block; vertical-align: top;">
+    <ul class="button-group">
+        <li>
+            <a href="#" class="button radius tiny warning" onclick="contextualHelp()">
+                <i class="fi-info"></i>
+            </a>
+        </li>
+    </ul>
+    <ul class="button-group">
+        <li>
+            <a href="#"  class="button radius tiny success" onclick="formEdit('1','attachment','form_edit_action', '{{content_id}}')">
+                <i class="fi-paperclip"></i>
+            </a>
+        </li>
+    </ul>
+    <ul class="button-group">
+        <li>
+            <a href="#" class="button radius tiny" id="previous_all" onclick="formEdit('{{first}}','{{name}}','form_edit_action', '{{content_id}}')">
+                <i class="fi-previous"></i>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="button radius tiny" id="previous" onclick="formEdit('{{back}}','{{name}}','form_edit_action', '{{content_id}}')">
+                <i class="fi-rewind"></i>
+            </a>
+        </li>
+    </ul>
+    <div style="display:inline-block; vertical-align: top; padding-top: 0.4rem;">
+        {{record_num}} de {{rows_count}}
+    </div>
+    <ul class="button-group">
+        <li>
+            <a href="#" class="button radius tiny" id="forward" onclick="formEdit('{{forward}}','{{name}}','form_edit_action','{{content_id}}')">
+                <i class="fi-fast-forward"></i>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="button radius tiny"  id="forward_all"onclick="formEdit('{{last}}','{{name}}','form_edit_action','{{content_id}}')">
+                <i class="fi-next"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+%end
+</div>
+
+<div class="form_Content"><!--Formulário-->
+%#print ('formulario do edit no template')
+    <!--Campos do formulário-->
+    %col=0
+    %#print (fields)
+    %for field in fields:
+        %#print (field)
+        %if col == 0:
+            <div class="row fullWidth">
+        %end
+        %if col + int(field[2]) > cols:
+            %col = 0
+                <div class="small-1 medium-1 large-1 columns">
+                </div>
+            </div>
+            <div class="row fullWidth">
+            %if col + int(field[2]) > cols:
+                <div>Field size error!</div>
+                %col += 1
+            %else:
+                {{!field[1]}}
+                %col += int(field[2])
+            %end
+        %else:
+            {{!field[1]}}
+            %col += int(field[2])
+        %end
+        %if col >= cols:
+            %col = 0
+                <div class="small-1 medium-1 large-1 columns">
+                </div>
+            </div>
+        %end
+    %end
+        <div class="small-1 medium-1 large-1 columns">
+        </div>
+    </div>
+    <div class="row fullWidth">
+    </div>
+
+    <!--Tabs-->
+%#print ('tabs do edit no template')
+    %if tabs:
+    <div class="row fullWidth"> <!--Tabs-->
+        <dl class="tabs radius" data-tab>
+            %first = ''
+            %for tab in tabs:
+                %if not first:
+                    <dd id="{{tab[1]}}_tab" class="active tab"><a href="#" onclick="$('.tab').removeClass('active'); $('#{{!tab[1]}}_tab').addClass('active'); $('#{{!tab[1]}}_content').addClass('active');">{{!tab[0]}}</a></dd>
+                    %first = tab[1]
+                %else:
+                    <dd id="{{tab[1]}}_tab" class="tab"><a href="#" onclick="$('.tab').removeClass('active'); $('#{{!tab[1]}}_tab').addClass('active'); $('#{{!tab[1]}}_content').addClass('active');">{{!tab[0]}}</a></dd>
+                %end
+            %end
+        </dl>
+        <div class="tabs-content radius">
+            %first = ''
+            %for tab in tabs:
+                %if not first:
+                    <div class="content active tab" id="{{!tab[1]}}_content">
+                        <div>
+                            {{!tab[2]}}
+                        </div>
+                    </div>
+                    %first = tab[1]
+                %else:
+                    <div class="content tab" id="{{!tab[1]}}_content">
+                        <div>
+                            {{!tab[2]}}
+                        </div>
+                    </div>
+                %end
+            %end
+        </div>
+    </div>  <!--Tabs-->
+    %end
+%#print ('workflow do edit no template')
+    <!--Botões do Workflow-->
+
+    %if wf_auth_buttons:
+        <div class="row fullWidth">
+        %if not main_key:
+            %main_key = 'None'
+        %end
+        %for workflow_button in wf_auth_buttons:
+            <div id="{{workflow_button}}">
+            %if 'Imprimir' in workflow_button:
+                <a href="#" class="button tiny radius workflow_button" onclick="print_doc('{{main_key}}', '{{name}}','{{wf_auth_buttons[workflow_button]}}');" style="float:right;"><i class="fi-widget"></i> {{workflow_button}}</a>
+            %elif 'Exportar' in workflow_button:
+                <a href="#" class="button tiny radius workflow_button" onclick="export_doc('{{main_key}}','{{workflow_button}}','{{name}}', '{{wf_auth_buttons[workflow_button]}}');" style="float:right;"><i class="fi-widget"></i> {{workflow_button}}</a>
+            %else:
+                <a href="#" class="button tiny radius workflow_button" onclick="workflow('{{main_key}}','{{name}}','{{wf_auth_buttons[workflow_button]}}');" style="float:right;"><i class="fi-widget"></i> {{workflow_button}}</a>
+            %end
+            </div>
+        %end
+        </div>
+    %end
+%print ('Fim do edit no template')
+</div><!--Formulário-->
+
+</div>
+

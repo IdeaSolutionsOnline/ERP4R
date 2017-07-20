@@ -1,0 +1,63 @@
+% setdefault('entreprise', '')
+% setdefault('cliente', '')
+% setdefault('data', '')
+% setdefault('numero', '')
+% setdefault('linhas', [])
+% setdefault('total_desconto', '')
+% setdefault('total_iva', '')
+% setdefault('total', '')
+% setdefault('notas', '')
+% setdefault('logotipo', '')
+<!DOCTYPE html>
+<html lang="pt-PT">
+	<head>
+	</head>
+	<body>
+		<h3>{{ enterprise }}</h3>
+		<table style="width:200mm; margin:0; padding:0">
+		<tr>
+		<td>Numero:</td><td>{{ numero }}</td><td>Leitor:</td><td>{{ leitor[1] }}</td>
+		</tr>
+		<tr>
+		<td>Data:</td><td>{{ data }}</td><td>Zona:</td><td>{{ zona[1] }}</td>
+		</tr>
+		</table>
+		Notas a tomar em conta:<br>
+		_________________________________________________________________________________________<br>
+		_________________________________________________________________________________________<br>
+		_________________________________________________________________________________________<br>
+		_________________________________________________________________________________________<br>
+		<table style="width:200mm; margin:0; padding:0">
+		<tr>
+			
+			<td><b>Contador</b></td>
+			<td><b>Cliente</b></td>
+			<td><b>Leit. Anterior</b></td>
+			<td><b>Leit. Actual</b></td>
+			
+		</tr>
+		% line_number = 1
+		% for l in linha_leitura:
+			% if line_number == 35:
+				<tr>
+					<td><br><br></td><td></td><td></td><td></td>
+				</tr>
+				<tr>
+					<td><b>Contador</b></td>
+					<td><b>Cliente</b></td>
+					<td><b>Leit. Anterior</b></td>
+					<td><b>Leit. Actual</b></td>
+				</tr>
+				% line_number = -7
+			% end
+		<tr>
+			<td>{{l['contador'][1]}}</td>
+			<td>{{l['cliente']}}</td>
+			<td>{{l['leitura_anterior']}}</td>
+			<td>__________{{l['leitura_actual']}}</td>
+		</tr>
+			% line_number += 1
+		% end
+		</table>
+	</body>
+</html>
