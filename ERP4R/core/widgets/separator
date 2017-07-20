@@ -1,0 +1,8 @@
+% setdefault('noline', False)
+% setdefault('legend', '')
+<div class="small-12 medium-12 large-12 columns">
+<legend>{{!legend}}</legend>
+%if not noline:
+	<hr style=" margin-top:1px;margin-bottom: 15px;height: 12px; border: 0; box-shadow: inset 0 12px 12px -12px rgba(0, 0, 0, 0.5);">
+%end
+</div>

@@ -1,0 +1,20 @@
+CACHE MANIFEST
+# Explicitly cached 'master entries'.
+CACHE:
+/static/css/foundation.min.css
+/static/css/normalize.css
+/static/css/foundation-icons.css
+/static/css/erp.css
+/static/logos/favicon.ico
+/static/logos/logo100x100.png
+/static/logos/logo50x50.png
+/static/js/jquery.min.js
+/static/js/modernizr.js
+/static/js/foundation.min.js
+/static/js/fastclick.js
+/static/js/jquery-1.10.2.min.map
+/static/js/erp.js
+/static/fonts/foundation-icons.ttf
+/static/fonts/foundation-icons.woff
+/static/fonts/foundation-icons.eot
+/static/fonts/foundation-icons.svg

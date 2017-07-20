@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html  class="no-js" lang="pt-PT">
+  <head>
+    <meta charset="utf-8">
+    <title>Ajuda da aplicação de Gestão de Projetos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ajuda da aplicação de Gestão de Projectos">
+    <meta name="author" content="António Anacleto">
+
+    <!-- Le styles -->
+    <link href="/static/css/normalize.css" rel="stylesheet">
+    <link href="/static/css/foundation.min.css" rel="stylesheet">
+    <link href="/static/css/foundation-icons.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="/static/favicon.png">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="/static/js/html5.js"></script>
+    <![endif]-->
+
+    <script src="/static/js/modernizr.js"></script>
+
+  </head>
+
+  <body>
+<div id='loadingDiv' style='position:absolute; top:0px; left:0px; z-index: 100; height: 100%; width: 100%; display:flex; vertical-align:middle; text-align:center; background: #fff; filter:alpha(opacity=55); opacity:.55;
+   color: #000; visibility:hidden;'>
+   <div style="display:block; margin:auto;">
+    Aguarde ...  <br><br>
+    <img src='/static/images/RunningWoman.gif'/>
+    </div>
+ </div>
+
+<div class="off-canvas-wrap">
+<div class="inner-wrap">
+<div class="">
+  <div class="main-section">
+
+        <h3>Ajuda do menu tarefas de Projecto!</h3>
+<div><!--conteudo-->
+Este menu permite:
+    <ul>
+    <li>
+ Criar novas tarefas, 
+    </li>
+    <li>
+ Editar/Gerir Tarefas,
+     </li>
+    <li>
+ Visualizar gráfico de Gantt das tarefas do projecto,
+     </li>
+    <li>
+ Imprimir Relatório das tarefas do projecto.
+     </li>
+    </ul>
+
+</div><!--conteudo-->
+
+  </div>
+
+      <footer>
+        <p>&copy; <small>DGRSI@Ministério das Finanças de Cabo Verde (2014)</small></p>
+      </footer>
+
+    </div><!--/.fluid-container-->
+
+    <!-- javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/fastclick.js"></script>
+    <script src="/static/js/foundation.min.js"></script>
+
+    <script>
+      $(document).foundation();
+
+      $( document ).ajaxStart(function() {
+          $( "#loadingDiv" ).show();
+      });
+
+      $( document ).ajaxStop(function() {
+          $( "#loadingDiv" ).hide();
+      });
+
+    </script>
+
+  </body>
+</html>

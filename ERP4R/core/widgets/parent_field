@@ -1,0 +1,40 @@
+% setdefault('hidden', '')
+% setdefault('nolabel', False)
+% setdefault('source', 'edit')
+% setdefault('name', '')
+% setdefault('value', '')
+% setdefault('args', '')
+
+%real_value = value
+%show_value = value
+%if isinstance(value, tuple):
+	%real_value = value[0]
+	%show_value = value[1]
+%end
+
+%#print (nolabel)
+%#print (source)
+%#print (field_name, parent_name)
+
+%if source == 'edit' and not hidden:
+	<div class="small-{{cols}} medium-{{cols}} large-{{cols}} columns">
+	%if not nolabel:
+		<label>{{!field_name}}</label>
+	%end
+%else:
+	<div class="small-{{cols}} medium-{{cols}} large-{{cols}} columns">
+%end
+
+%if real_value:
+	<input id="{{!name}}" type=Hidden name="{{!name}}" {{!args}} value="{{!real_value}}"></input>
+	%if not hidden:
+		<a href="#" class="base_color" onclick="editNewWin(key='{{real_value}}', name='{{parent_name}}', content_id='content');">
+		<div class="parent input_type">{{!show_value or ' &nbsp'}}</div></a>
+	%end
+%else:
+	<input id="{{!name}}" type=Hidden name="{{!name}}" {{!args}} value="{{!real_value}}"></input>
+	%if not hidden:
+		<div class="parent input_type">{{!show_value or ' &nbsp'}}</div>
+	%end
+%end
+	</div>

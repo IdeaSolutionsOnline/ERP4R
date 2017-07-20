@@ -1,0 +1,47 @@
+% setdefault('enterprise', '')
+% setdefault('lines', [])
+% setdefault('notas', '')
+% setdefault('logotipo', '')
+% setdefault('data_inicial', '')
+% setdefault('data_final', '')
+% #print ('im in extracto.html')
+% #print (lines) 
+<!DOCTYPE html>
+<html lang="pt-PT">
+   <head>
+   </head>
+   <body>
+        <h3>{{ enterprise }}</h3>
+        Terminal: {{ terminal }},  Utilizador: {{ user_name }}<br>
+        <h2>Extrato da Conta: {{conta}}</h2> Data Inicial: {{ data_inicial or 'Inicio'}}, Data Final: {{ data_final or 'Fim'}}<br>
+        <h4>Movimentos</h4>
+        <div style="width:200mm; float:right">Saldo Inicial: {{ saldo_inicial }}</div>
+        <table style="width:200mm; margin:0; padding:0">
+        <tr>
+            <td>Data</td>
+            <td align="center">Movimento</td>
+            <td align="left">Documento</td>
+            <td align="center">Numero</td>
+            <td>Descrição</td>
+            <td align="right">Débito</td>
+            <td align="right">Crédito</td>
+            <td align="right">Saldo</td>
+        </tr>
+        % for l in lines:
+        <tr>
+            <td>{{l['data']}}</td>
+            <td align="center">{{l['movimento']}}</td>
+            <td align="left">{{l['documento']}}</td>
+            <td align="center">{{l['num_doc']}}</td>
+            <td>{{l['descricao']}}</td>
+            <td align="right">{{l['debito']}}</td>
+            <td align="right">{{l['credito']}}</td>
+            <td align="right">{{l['saldo']}}</td>
+        </tr>
+        % end
+        </table>
+   </body>
+% #print ('fim')
+</html>
+
+

@@ -1,0 +1,164 @@
+      textarea {
+        height: auto;
+      }
+
+      .fullWidth {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: initial;
+      }
+
+      .button-group {
+        left:0;
+        list-style:none;
+        margin:0;
+      }
+
+      .top-bar-section .dropdown li {
+        width: 100%;
+        height: 30px;
+      }
+
+      ul {
+        margin-left:0.1rem;
+        display:inline-block;
+      }
+
+       .warning {
+        background: orange;
+       }
+
+       .list_widget {
+       }
+
+      .pager  {
+        align: right;
+        text-align: right;
+        float: right;
+      }
+
+      .records_count {
+        align: left;
+        text-align: left;
+        float: left;
+      }
+
+      .check {
+        width: 1.0rem;
+        height: 1.0rem;
+        margin: 0 0 0rem 0;
+        padding: 0px;
+      }
+
+      input[type="checkbox"] {
+        margin: 0 0 0rem 0;
+      }
+
+      .button.tiny {
+        padding-top: 0.2rem;
+        padding-right: 0.5rem;
+        padding-bottom: 0.2rem;
+        padding-left: 0.5rem;
+        font-size: 0.6875rem;
+        margin: 0px;
+      }
+
+      i {
+        margin: 0px;
+        padding: 0px;
+        width: 1.5rem;
+        height: 1.5rem;
+        font-size: large;
+        line-height: 1.0rem;
+      }
+
+      table {
+        margin-bottom: 0.1rem;
+        }
+          table thead tr th,
+          table thead tr td,
+          table tfoot tr th,
+          table tfoot tr td {
+            padding: 0.1rem 0.1rem 0.1rem;
+            font-size: 0.875rem;
+            }
+        table tr th,
+        table tr td {
+          padding: 0.1rem 0.1rem;
+          font-size: 0.875rem;
+          }
+
+        .tabs dd > a {
+          padding-top: 0.1rem;
+          padding-right: 1rem;
+          padding-bottom: 0.1rem;
+          padding-left: 1rem;
+          border-radius:3px;
+          border-style:solid;
+          border-width:1px;
+          border-color:WhiteSmoke;
+          }
+
+        .tabs dd.active a {
+          background: white;
+          border-top-style:solid;
+          border-right-style:solid;
+          border-bottom-style:solid;
+          border-left-style:solid;
+          border-width:1px;
+          border-bottom-color:white;
+          }
+
+        .tabs-content {
+          border-radius:3px;
+          border-top-style:solid;
+          border-bottom-style:solid;
+          border-width:1px;
+          border-color:WhiteSmoke;
+          }
+
+          /* We use this to get basic styling on all basic form elements */
+
+.input_type {
+  -webkit-appearance: none;
+  background-color: white;
+  font-family: inherit;
+  border: 1px solid #cccccc;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.75);
+  display: block;
+  font-size: 0.875rem;
+  margin: 0 0 1rem 0;
+  padding: 0.5rem;
+  height: 2.3125rem;
+  width: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: -webkit-box-shadow 0.45s, border-color 0.45s ease-in-out;
+  -moz-transition: -moz-box-shadow 0.45s, border-color 0.45s ease-in-out;
+  transition: box-shadow 0.45s, border-color 0.45s ease-in-out; }
+
+  .input_type:focus {
+    -webkit-box-shadow: 0 0 5px #999999;
+    -moz-box-shadow: 0 0 5px #999999;
+    box-shadow: 0 0 5px #999999;
+    border-color: #999999; }
+
+  .input_type:focus {
+    background: #fafafa;
+    border-color: #999999;
+    outline: none; }
+
+  .input_type[disabled] {
+    background-color: #dddddd; }
+
+  .input_type.radius {
+    -webkit-border-radius: 3px;
+    border-radius: 3px; }
+
+  .hidden_class{
+    display: none;
+  }

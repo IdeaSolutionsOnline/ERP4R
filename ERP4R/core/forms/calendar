@@ -1,0 +1,34 @@
+	def show(self):
+		#formulário de calendario
+		from calendar import monthcalendar
+
+		code = """
+	<div class="calendar">
+		<table class="calendar_table">
+			<tr>
+				<th>Segunda</th>
+				<th>Terça</th>
+				<th>Quarta</th>
+				<th>Quinta</th>
+				<th>Sexta</th>
+				<th>Sábado</th>
+				<th>Domingo</th>
+			</tr>
+		"""
+		for week in monthcalendar(self.year, self.month):
+			code += """
+			<tr>
+			"""
+			for day in week:
+				code += """
+					<td onclick="alert('{day}')" class="calendar_td">{day}</td>
+				""".format(day=day)
+			code += """
+			</tr>
+			"""
+		code += """
+		</table>
+	</div>
+	"""
+		return code
+

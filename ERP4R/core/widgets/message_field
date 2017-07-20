@@ -1,0 +1,32 @@
+% setdefault('hidden', False)
+% setdefault('nolabel', False)
+% setdefault('source', 'edit')
+% setdefault('field_name', 'None')
+% setdefault('name', '')
+% setdefault('value', '')
+% setdefault('args', '')
+
+%input_type = 'type="text"'
+%if hidden:
+	%input_type = 'type="Hidden"'
+%end
+
+%if source == 'edit' and not hidden:
+	<div class="small-{{cols}} medium-{{cols}} large-{{cols}} columns">
+	%if not nolabel:
+		<label>{{!field_name}}</label>
+	%end
+%else:
+	<div>
+%end
+	<div>
+		<textarea id="{{!name}}" form="erpForm" name="{{!name}}" rows="4" cols="{{size}}" {{!args}}>
+			{{!value}}
+		</textarea>
+		<script type="text/javascript">
+			for(k in CKEDITOR.instances){
+				var instance = CKEDITOR.instances[k];
+				instance.destroy()
+				}
+			CKEDITOR.replaceAll();
+		</script>

@@ -1,0 +1,38 @@
+% setdefault('entreprise', '')
+% setdefault('cliente', '')
+% setdefault('data', '')
+% setdefault('numero', '')
+% setdefault('linhas', [])
+% setdefault('total_desconto', '')
+% setdefault('total_iva', '')
+% setdefault('total', '')
+% setdefault('notas', '')
+% setdefault('logotipo', '')
+<!DOCTYPE html>
+<html lang="pt-PT">
+	<head>
+	</head>
+	<body>
+		<h3>{{ enterprise }}</h3>
+		
+		no dia {{ocorrencia[0]['data_ocorrencia']}} ás {{ocorrencia[0]['hora_ocorrencia']}}, <br>
+		{{terceiro[1]}}, na sequencia da ocorrencia nº {{ocorrencia[0]['numero']}}, <br>
+		na presença de {{ocorrencia[0]['agente_servico'][1]}}, <br>
+		declarou o seguinte:<br>
+		<br>
+		{{descricao}}<br>
+		<br>
+		<br>
+		Por ser verdade,<br>
+		<br>
+		Declarante<br>
+		<br>
+		__________________________<br>
+		<br>
+		<br>
+		Agente de Serviço<br>
+		<br>
+		__________________________<br>
+	</body>
+</html>
+

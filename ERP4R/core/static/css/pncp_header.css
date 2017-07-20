@@ -1,0 +1,29 @@
+table th {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 15px;
+}
+
+table td{
+    text-align: right;
+    font-size: 15px;
+}
+
+#bsubtitle{
+    text-align: left;
+    padding-right: 6%;
+    font-size: 15px;
+}
+#btitle{
+    text-align: center;
+    font-size: 15px;
+}
+#bdata{
+    text-align: right;
+    padding-left: 6%;
+    font-size: 15px;
+}
+p{
+    display : inline;
+}
